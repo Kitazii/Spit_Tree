@@ -1,0 +1,88 @@
+﻿@model IEnumerable<K_Burns_SpitTree.Models.Post>
+@using K_Burns_SpitTree.Models
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<br />
+<hr />
+@foreach (var item in ViewBag.Categories)
+{
+    <b> @item.Name </b>
+}
+<br />
+<hr />
+
+@using (Html.BeginForm())
+{
+    <p>
+        Find posts by category: @Html.TextBox("SearchString")
+        
+        <input type="submit" value="Search" />
+    </p>
+}
+<br />
+<hr />
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Category.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.User.UserName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Location)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Price)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DatePosted)
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Category.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.User.UserName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Title)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Description)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Location)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Price)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DatePosted)
+        </td>
+        <td>
+            @if (item.DateExpired <= DateTime.Now)
+            {
+                <b>Expired</b>
+            }
+        </td>
+        <td>
+            | @Html.ActionLink("Details", "Details", new { id = item.PostId }) |
+        </td>
+    </tr>
+}
+
+</table>
